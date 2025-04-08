@@ -4,7 +4,7 @@ package ru.gb.springdemo.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springdemo.model.Book;
-import ru.gb.springdemo.repository.BookRepository;
+import ru.gb.springdemo.service.BookService;
 
 import java.util.List;
 
@@ -12,25 +12,26 @@ import java.util.List;
 @RequestMapping ("/book")
 public class BookController {
     @Autowired
-    BookRepository bookRepository;
+    BookService service;
 
     @GetMapping
     public List<Book> getAllBooks(){
-        return bookRepository.getAllBooks();
+        return service.getAllBooks();
     }
 
     @PostMapping
     public void addBook (@RequestBody Book book){
-        bookRepository.addBook(book);
+        service.addBook(book);
     }
+
     @GetMapping("/{id}")
     public Book getBookByID(@PathVariable long id){
-        return bookRepository.getBookByID(id);
+        return service.getBookByID(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable long id){
-        bookRepository.deleteByID(id);
+        service.deleteBookById(id);
     }
 
 
